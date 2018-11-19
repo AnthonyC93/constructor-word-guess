@@ -1,0 +1,25 @@
+{
+  "name": "constructor-word-guess",
+  "version": "1.0.0",
+  "description": "Letter.js: Contains a constructor, Letter. This constructor should be able to either display an underlying character or a blank placeholder (such as an underscore), depending on whether or not the user has guessed the letter. That means the constructor should define:",
+  "main": "index.js",
+  "dependencies": {
+    "inquirer": "^6.2.0",
+    "random-word": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnthonyC93/constructor-word-guess.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnthonyC93/constructor-word-guess/issues"
+  },
+  "homepage": "https://github.com/AnthonyC93/constructor-word-guess#readme"
+}
