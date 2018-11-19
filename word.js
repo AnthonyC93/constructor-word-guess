@@ -4,18 +4,15 @@ module.exports={
     word:function(wordToGuess){
         this.lettersInWord=[]
 
+        var actualWord='';
         for (let i=0;i<wordToGuess.length;i++){
             let newLetterObject = new letter.letter(wordToGuess.charAt(i))
+            actualWord+=newLetterObject.underlyingChar;
             this.lettersInWord.push(newLetterObject);
         }
 
-        this.wordIs=function(){
-            let wordIs = ''
-            this.lettersInWord.forEach(element =>{
-                wordIs+=element.underlyingChar;
-            })
-            return wordIs;
-        }
+        this.wordIs=actualWord;
+ 
         this.checkIfComplete=function(){
             count=0;
             this.lettersInWord.forEach(element => {
@@ -31,8 +28,6 @@ module.exports={
             for (let i=0;i<this.lettersInWord.length;i++){
               whatToDisplay+=this.lettersInWord[i].displayLetter()+' ';
             }
-            // console.log("*- * - * - * - * - * - * - * - * - * - * - * - *\n")
-            // console.log(whatToDisplay+'\n\n');
             return whatToDisplay;
         }
 

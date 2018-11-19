@@ -2,11 +2,7 @@ var word = require('./word.js');
 var inquirer = require('inquirer');
 const randomWord = require('random-word');
 
-//randomly select a word and use word constructor to store it'
-
-var roundToPlay = new round(new word.word(randomWord()));
-console.log(roundToPlay.wordBeingPlayed.wordIs())
-roundToPlay.formatAndAsk();
+newGame();
 
 function askUser(){
     inquirer.prompt([
@@ -39,10 +35,9 @@ function askUser(){
 }
 function newGame(){
     roundToPlay = new round(new word.word(randomWord()));
-    console.log(roundToPlay.wordBeingPlayed.wordIs())
+    console.log(roundToPlay.wordBeingPlayed.wordIs)
     roundToPlay.formatAndAsk();
 }
-
 function round(word){
     this.wordBeingPlayed=word,
     this.wrongGuesses=[];
@@ -69,7 +64,7 @@ function round(word){
             '\n\n'+
             '   <><><><><><><><><><><><><><><><>'+'\n'+
             '   |'+'\n'+
-            '   |  '+roundToPlay.wordBeingPlayed.wordIs()+'... nice.'+'\n'+
+            '   |  '+roundToPlay.wordBeingPlayed.wordIs+'... nice.'+'\n'+
             '   |'+'\n'+
             '   <><><><><><><><><><><><><><><><>'+'\n'+
             '\n'
