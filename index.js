@@ -1,6 +1,7 @@
 var word = require('./word.js');
 var inquirer = require('inquirer');
 const randomWord = require('random-word');
+var roundToPlay;
 
 newGame();
 
@@ -16,6 +17,8 @@ function askUser(){
     .then(answers=>
         {
             let userGuess = answers.userGuess[0];
+
+            //if guess is correct
             if(roundToPlay.wordBeingPlayed.checkLetter(userGuess)){
                 if(roundToPlay.wordBeingPlayed.checkIfComplete()===false){
                     roundToPlay.formatAndAsk();
@@ -23,10 +26,23 @@ function askUser(){
                     roundToPlay.won();
                 }
             }else{
+                //if guess is incorrect
+
+                //if this is a new wrong guess
                 if(roundToPlay.wrongGuesses.includes(userGuess)===false){
                     roundToPlay.wrongGuesses.push(userGuess);
+                    roundToPlay.guessesRemaining-=1;
+                    // if(roundToPlay.guessesRemaining===0){
+                    //     roundToPlay.lost();
+                    // }
                 }
-                roundToPlay.formatAndAsk();
+
+                if(roundToPlay.guessesRemaining===0){
+                    roundToPlay.lost();
+                }else{
+                    roundToPlay.formatAndAsk();
+                }
+                
             };
             
         }
@@ -40,6 +56,7 @@ function newGame(){
 }
 function round(word){
     this.wordBeingPlayed=word,
+    this.guessesRemaining=9,
     this.wrongGuesses=[];
     this.formatAndAsk=function(){
         var response = (
@@ -49,7 +66,9 @@ function round(word){
             '   |'+'\n'+
             '   |   '+roundToPlay.wordBeingPlayed.displayWord()+'\n'+
             '   |'+'\n'+
-            '   |   guesses:'+roundToPlay.wrongGuesses+'\n'+
+            '   |   guesses remaining: '+roundToPlay.guessesRemaining+'\n'+
+            // '   |'+'\n'+
+            '   |   letters tried: '+roundToPlay.wrongGuesses.join(" ")+'\n'+
             '   |'+'\n'+
             '   <><><><><><><><><><><><><><><><>'+'\n'+
             '\n'
@@ -57,17 +76,30 @@ function round(word){
             
             console.log(response);
             askUser();
-        },
+    },   
     this.won=function(){
-            console.log(
-            '\n\n*- * - * - * - * - * - * - * - * - * - * - * - *'+
-            '\n\n'+
-            '   <><><><><><><><><><><><><><><><>'+'\n'+
-            '   |'+'\n'+
-            '   |  '+roundToPlay.wordBeingPlayed.wordIs+'... nice.'+'\n'+
-            '   |'+'\n'+
-            '   <><><><><><><><><><><><><><><><>'+'\n'+
-            '\n'
+        console.log(
+        '\n\n*- * - * - * - * - * - * - * - * - * - * - * - *'+
+        '\n\n'+
+        '   <><><><><><><><><><><><><><><><>'+'\n'+
+        '   |'+'\n'+
+        '   |  '+roundToPlay.wordBeingPlayed.wordIs+'... nice.'+'\n'+
+        '   |'+'\n'+
+        '   <><><><><><><><><><><><><><><><>'+'\n'+
+        '\n'
+        )
+        newGame();
+    }
+    this.lost=function(){
+        console.log(
+        '\n\n*- * - * - * - * - * - * - * - * - * - * - * - *'+
+        '\n\n'+
+        '   <><><><><><><><><><><><><><><><>'+'\n'+
+        '   |'+'\n'+
+        '   |   you lost. the word was '+roundToPlay.wordBeingPlayed.wordIs+'...'+'\n'+
+        '   |'+'\n'+
+        '   <><><><><><><><><><><><><><><><>'+'\n'+
+        '\n'
         )
         newGame();
     }
